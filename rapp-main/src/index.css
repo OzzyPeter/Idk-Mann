@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Fraunces:ital,wght@0,300;1,300&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app[data-theme="light"] {
+  --bg: #FAF8F5;
+  --surface: #FFFFFF;
+  --surface2: #F5F1EC;
+  --surface3: #F0EBE3;
+  --border: #EAE6DF;
+  --text1: #2C2825;
+  --text2: #4A3E36;
+  --text3: #7A6A5E;
+  --text4: #B5A99E;
+  --accent: #C17B4E;
+  --accent-bg: rgba(193,123,78,0.08);
+  --accent-border: rgba(193,123,78,0.3);
+}
+
+.app[data-theme="dark"] {
+  --bg: #16120E;
+  --surface: #1E1812;
+  --surface2: #261E16;
+  --surface3: #2E2418;
+  --border: rgba(255,255,255,0.07);
+  --text1: #F0EBE3;
+  --text2: #D4C8BC;
+  --text3: #9A8880;
+  --text4: #5A4E46;
+  --accent: #D4935E;
+  --accent-bg: rgba(212,147,94,0.1);
+  --accent-border: rgba(212,147,94,0.25);
+}
