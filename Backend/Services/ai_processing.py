@@ -1,7 +1,7 @@
 from google import genai
 import json
 
-client = genai.Client(api_key="AIzaSyCvqQktKZ6oNH7BurgAZFdMXlwcLdFvTTE")
+client = genai.Client(api_key="AIzaSyCpSoj3alB7rwEiEyxz6N-JacYyZT_j9L4")
 
 
 def summarize_text(transcript):
