@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 import uuid
 import os
 from Services.transcription import transcribe_audio
-from Services.ai_processing import summarize_text, extract_concepts
+from Services.ai_processing import summarize_text_extract_concepts
 
 lecture_bp = Blueprint("lecture", __name__)
 
@@ -18,8 +18,10 @@ def analyze_lecture():
 
     try:
         transcript = transcribe_audio(audio_path)
-        summary = summarize_text(transcript)
-        concepts = extract_concepts(summary)
+        result = summarize_text_extract_concepts(transcript)
+
+        summary = result["summary"]
+        concepts = result["concepts"]
 
         return jsonify({
             "transcript": transcript,
