@@ -1,13 +1,11 @@
-from faster_whisper import WhisperModel
+from flask import Flask
+from flask_cors import CORS
+from Routes.lecture import lecture_bp
 
-Wh_model = WhisperModel("base")
+app = Flask(__name__)
+CORS(app)
 
-def transcribe_audio(audio_path):
-    segments, info = Wh_model.transcribe(
-        audio_path,
-        beam_size=10,
-        language="en"
-    )
+app.register_blueprint(lecture_bp)
 
-    transcript = " ".join([segment.text for segment in segments])
-    return transcript
+if __name__ == "__main__":
+    app.run(debug=True)
