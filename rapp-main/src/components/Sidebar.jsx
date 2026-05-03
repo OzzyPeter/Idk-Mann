@@ -1,6 +1,10 @@
+import { useState } from "react";
 import "./Sidebar.css";
 
+// const Sidebar = ({ isRecording, audioBlob, onStart, onStop, onUpload, onSubmit, loading, transcript, result }) => {
+
 const Sidebar = ({ isRecording, audioBlob, onStart, onStop, onUpload, onSubmit, loading, transcript, result }) => {
+  const [transcriptExpanded, setTranscriptExpanded] = useState(false);
 
   const handleFileChange = (e) => {
     if (e.target.files[0]) {
@@ -13,7 +17,10 @@ const Sidebar = ({ isRecording, audioBlob, onStart, onStop, onUpload, onSubmit, 
       <div className="sec-label">Record</div>
 
       {/* live recording button */}
-      <div className="rec-card" onClick={isRecording ? onStop : onStart}>
+      <div 
+        className={`rec-card ${loading ? "rec-card--disabled" : ""}`}
+        onClick={loading ? null : (isRecording ? onStop : onStart)}
+      >
         <div className="rec-dot-wrap">
           <div className={`rec-dot ${isRecording ? "recording" : ""}`}>
             <div className="rec-dot-inner"></div>
@@ -25,7 +32,14 @@ const Sidebar = ({ isRecording, audioBlob, onStart, onStop, onUpload, onSubmit, 
       </div>
 
       {/* upload option */}
-      <label className="upload-card">
+      <label className={`upload-card ${loading ? "upload-card--disabled" : ""}`}>
+  <input 
+    type="file" 
+    accept="audio/*" 
+    onChange={handleFileChange} 
+    style={{ display: "none" }}
+    disabled={loading}
+  />
         <div className="up-icon">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M8 2v8M5 5l3-3 3 3M2 13h12" stroke="var(--accent)" strokeWidth="1.5" strokeLinecap="round"/>
@@ -61,14 +75,31 @@ const Sidebar = ({ isRecording, audioBlob, onStart, onStop, onUpload, onSubmit, 
       )}
 
       {/* transcript shows up after API response */}
-      {transcript && (
+      {/* {transcript && (
         <>
           <div className="sec-label">Live transcript</div>
           <div className="tr-box">
             <div className="tr-text">{transcript}</div>
           </div>
         </>
-      )}
+      )} */}
+
+    {transcript && (
+      <>
+        <div className="sec-label">Live transcript</div>
+        <div className={`tr-box ${transcriptExpanded ? "tr-box--expanded" : "tr-box--collapsed"}`}>
+          <div className="tr-text">{transcript}</div>
+          {!transcriptExpanded && <div className="tr-fade"></div>}
+        </div>
+        <button 
+          className="tr-toggle-btn"
+          onClick={() => setTranscriptExpanded(!transcriptExpanded)}
+        >
+          {transcriptExpanded ? "Show less ↑" : "Show more ↓"}
+        </button>
+      </>
+    )}
+
     </div>
   );
 };

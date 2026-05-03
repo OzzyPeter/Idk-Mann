@@ -1,6 +1,10 @@
+import { useTheme } from "../context/ThemeContext";
 import "./OutputPanel.css";
 
 const OutputPanel = ({ result, loading, onNewSession }) => {
+  const { courseCode, courseName } = useTheme();
+
+
   if (loading) {
     return (
       <div className="output-panel">
@@ -30,6 +34,7 @@ const OutputPanel = ({ result, loading, onNewSession }) => {
 
   const handleDownload = () => {
     const content = `
+  ${courseCode} — ${courseName}
 Lecture Notes
 
 Summary
@@ -39,10 +44,6 @@ ${summary}
 Key Concepts
 
 ${concepts.map((concept, i) => `${i + 1}. ${concept}`).join("\n")}
-
-Transcript
-
-${transcript}
     `.trim();
 
     const blob = new Blob([content], { type: "text/plain" });
